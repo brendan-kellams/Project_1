@@ -46,6 +46,8 @@
             <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
             <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
             <dt>Country</dt><dd>{{country}}</dd>
+            <a href="/main.html" class="btn btn-primary">Go to Main Page</a>
+
           </dl>
         </div>
       </div>
@@ -58,6 +60,8 @@
         <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}></dd>
       </dl>
     </script>
+
+
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -101,6 +105,7 @@
               access_token: access_token,
               refresh_token: refresh_token
             });
+            localStorage.setItem("token", access_token);
 
             $.ajax({
                 url: 'https://api.spotify.com/v1/me',

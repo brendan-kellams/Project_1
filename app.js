@@ -11,6 +11,8 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var Spotify = require('spotify-web-api-js');
+var s = new Spotify();
 
 var client_id = 'ba1c7a8e08a84fa4ad7b70759f61cd64'; // Your client id
 var client_secret = 'f7cfa5010d9d40df91e459cf151d4975'; // Your secret
@@ -89,7 +91,6 @@ app.get('/callback', function(req, res) {
 
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
-
         var options = {
           url: 'https://api.spotify.com/v1/me',
           headers: { 'Authorization': 'Bearer ' + access_token },
