@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">
+    <title>Document</title>
+
+    <!-- Bootstrap link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Css Link -->
+    <link rel="stylesheet" href="mock-style-1.css">
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Friend Groups</h3>
+                <strong>FG</strong>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false">
+                        <i class="glyphicon glyphicon-headphones"></i>
+                        Groups
+                    </a>
+                    <ul class="collapse list-unstyled" id="groupSubmenu">
+                        <li>
+                            <a class='groupList' href="#">Groups go here</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <!-- need to finish the modal -->
+                    <a href="#" data-toggle='modal' data-target='#'>
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        Add a Friend</a>
+                </li>
+
+                <li>
+                    <a href="#friendSubmenu" data-toggle="collapse" aria-expanded="false">
+                        <i class="glyphicon glyphicon-user"></i>
+                        Friends
+                    </a>
+                    <ul class="collapse list-unstyled" id="friendSubmenu">
+                        <li>
+                            <a href="#">Page2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page2</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="content">
+            <nav class="navbar navbar-default col-lg-12">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="navbar-header">
+                                <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                                    <i class="glyphicon glyphicon-align-left"></i>
+                                    <span>Toggle Sidebar</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-2">
+                            <form action="" class="search-form">
+                                <div class="form-group has-feedback">
+                                    <label for="search" class="sr-only">Search</label>
+                                    <input type="text" class="form-control" name="search" id="search" placeholder="search">
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        <a href="#">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">About</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+            <div class="col-lg-12" id="media">
+                <iframe lass="" src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf" width="1210"
+                    height="580" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+        </div>
+
+        <!-- <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>We need to add a friend here</p>
+            </div>
+        </div> -->
+
+
+        <!-- jQuery CDN -->
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <!-- Bootstrap Js CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="mock-js-1.js"></script>
+</body>
+
+</html>
