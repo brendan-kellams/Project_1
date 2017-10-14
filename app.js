@@ -39,6 +39,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
+app.use(express.static('assets'));
 
 app.get('/login', function(req, res) {
 
