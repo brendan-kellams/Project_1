@@ -106,7 +106,6 @@
               refresh_token: refresh_token
             });
             localStorage.setItem("token", access_token);
-
             $.ajax({
                 url: 'https://api.spotify.com/v1/me',
                 headers: {
