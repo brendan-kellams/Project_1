@@ -23,8 +23,9 @@ $(".search-form").submit((event) => {
 		response.tracks.items.forEach((value, index, array) => {
 			var song = $('<li>').addClass('media');
 			var img_div = $('<div>').addClass('media-left');
+			var clickable = $('<a>').attr('href', '#').data('id', value.id).addClass('song-button');
 			var img = $('<img>').addClass('media-object').attr('alt', 'Generic placeholder image');
-			img_div.append(img);
+			img_div.append(clickable.append(img));
 			var body = $('<div>').addClass('song-body media-body');
 			var title = $('<h5>').addClass('mt-0 mb-1 media-heading');
 			img.attr('src', value.album.images[2].url);
@@ -35,6 +36,7 @@ $(".search-form").submit((event) => {
 			list.append(song);
 			// $("#media").append($("<div>").text(value.name));
 		});
+		$("#media").empty();
 		$("#media").append(list);
 	});
 });
@@ -54,3 +56,10 @@ $(".search-form").submit((event) => {
 // 		console.log(response);
 // 	});
 // });
+
+function addSong() {
+	console.log('Song added');
+	console.log($(this).data('id'));
+}
+
+$(document).on('click', '.song-button', addSong);
