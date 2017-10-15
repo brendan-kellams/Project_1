@@ -59,9 +59,28 @@ $(".search-form").submit((event) => {
 
 function addSong() {
 	console.log('Song added');
-	console.log($(this).data('id'));
+	var id = $(this).data('id');
 	$('.song-list').remove();
 	$('.playlist').show();
+	var url = "https://api.spotify.com/v1/users/" + "1298427285" + "/playlists/" + "5Cgnluzrv0uQ7mVcrtYSSb"
+	+ "/tracks?";
+	var track = "uris=spotify:track" + id;
+	url += track;
+	$.ajax({
+		headers: {
+			Authorization: "Bearer " + localStorage.getItem("token"),
+		},
+		url: url,
+		method: "POST",
+		data: {
+			uris: [
+				track
+			]
+
+		}
+
+	}).done((response) => {
+	});
 }
 
 $(document).on('click', '.song-button', addSong);
