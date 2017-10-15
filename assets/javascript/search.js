@@ -64,7 +64,7 @@ function addSong() {
 	$('.playlist').show();
 	var url = "https://api.spotify.com/v1/users/" + "1298427285" + "/playlists/" + "5Cgnluzrv0uQ7mVcrtYSSb"
 	+ "/tracks?";
-	var track = "uris=spotify:track" + id;
+	var track = "uris=spotify:track:" + id;
 	url += track;
 	$.ajax({
 		headers: {
@@ -77,9 +77,15 @@ function addSong() {
 				track
 			]
 
-		}
+		},
+		error: function (request, status, error) {
+        console.log(request.responseText);
+    }
+
 
 	}).done((response) => {
+		$('.playlist').attr('src', $('.playlist').attr('src'));
+
 	});
 }
 
