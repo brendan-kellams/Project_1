@@ -62,8 +62,8 @@ function addSong() {
 	var id = $(this).data('id');
 	$('.song-list').remove();
 	$('.playlist').show();
-	var url = "https://api.spotify.com/v1/users/" + "1298427285" + "/playlists/" + "5Cgnluzrv0uQ7mVcrtYSSb"
-	+ "/tracks?";
+	var url = "https://api.spotify.com/v1/users/" + localStorage.getItem('user_id') + "/playlists/" + localStorage.getItem('playlist_id')
+	+ "/tracks?position=0&";
 	var track = "uris=spotify:track:" + id;
 	url += track;
 	$.ajax({
@@ -73,10 +73,6 @@ function addSong() {
 		url: url,
 		method: "POST",
 		data: {
-			uris: [
-				track
-			]
-
 		},
 		error: function (request, status, error) {
         console.log(request.responseText);
@@ -87,7 +83,7 @@ function addSong() {
 		//Force reload after 30 seconds
 		setTimeout(() => {
 			$('.playlist').attr('src', $('.playlist').attr('src'));
-		}, 30000);
+		}, 15000);
 		
 
 	});
