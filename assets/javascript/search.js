@@ -36,7 +36,7 @@ $(".search-form").submit((event) => {
 			list.append(song);
 			// $("#media").append($("<div>").text(value.name));
 		});
-		$("#media").empty();
+		$(".song-list").remove();
 		$("#media").append(list);
 	});
 });
@@ -60,6 +60,8 @@ $(".search-form").submit((event) => {
 function addSong() {
 	console.log('Song added');
 	console.log($(this).data('id'));
+	$('.song-list').remove();
+	$('.playlist').show();
 }
 
 $(document).on('click', '.song-button', addSong);
