@@ -15,22 +15,3 @@ $('#sidebarCollapse').on('click', function () {
         $('iframe').css('width', '1210px');;
     }
 });
-
-
-// this is used to get the modal working when adding a friend
-
-// var modal = $('#myModal');
-
-// var link = $('#addFriend');
-
-// var span = $('.close')[0];
-
-// link.onclick = function() {
-//     modal.style.display = "block";
-// }
-
-// window.onclick = function(event) {
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
-// }
