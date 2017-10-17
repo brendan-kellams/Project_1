@@ -9,9 +9,13 @@ $(document).ready(function () {
 
 // this is used to reshape the contents when hitting the toggle button
 $('#sidebarCollapse').on('click', function () {
-    if ($('iframe').width() === 1210) {
-        $('iframe').css('width', '1370px');
+    if ($('iframe').width() === '700px') {
+        $('iframe').css('width', '800px');
     } else {
-        $('iframe').css('width', '1210px');;
+        $('iframe').css('width', '700px');
     }
 });
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  });

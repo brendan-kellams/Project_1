@@ -20,12 +20,13 @@
 
 <body>
     <div class="wrapper">
+
+        <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h3>Friend Groups</h3>
                 <strong>FG</strong>
             </div>
-
             <ul class="list-unstyled components">
                 <li class="active">
                     <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false">
@@ -36,25 +37,53 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" data-toggle="modal" data-target="#myModal">
                         <i class="glyphicon glyphicon-plus-sign"></i>
-                        Add a Friend</a>
+                        Add a Friend
+                    </a>
                 </li>
 
                 <li>
-                    <a href="#friendSubmenu" data-toggle= "collapse" aria-expanded="false">
+                    <a href="#friendSubmenu" data-toggle="collapse" aria-expanded="false">
                         <i class="glyphicon glyphicon-user"></i>
                         Friends
                     </a>
-                    <ul class="collapse list-unstyled" id="friendSubmenu">
+                    <ul class="collapse list-unstyled" id="friendSubmenu"></ul>
                     </ul>
                 </li>
             </ul>
         </nav>
 
-        <div id="content" class="container-fluid">
-            <nav class="container-fluid">
-                <div class="navbar navbar-default col-lg-12">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Add a Friend</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="usernamename" class="control-label">Username</label>
+                                <input type="text" class="form-control" id="username">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="addFriendBtn" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div id="content">
+            <nav class="container">
+                <div class="navbar navbar-default col-lg-12" id="navbar">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="navbar-header">
@@ -93,49 +122,49 @@
 
                 </div>
             </nav>
-
-            <div class="col-lg-2">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Likes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <div class="upvote">
-                                <a class="upvote"></a>
-                                <span class="count">6</span>
-                            </div>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-lg-6" id="media">
-                <iframe class ='playlist' src="https://open.spotify.com/embed?uri=spotify:user:1298427285:playlist:5Cgnluzrv0uQ7mVcrtYSSb" width="1210" height="580" frameborder="0" allowtransparency="true"></iframe>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group">
-                    <label for="comment">Comment:</label>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
+            <div class="row">
+                <div class="col-lg-1">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Likes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <div class="upvote">
+                                    <a class="upvote"></a>
+                                    <span class="count">6</span>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-7" id="media">
+                    <iframe class='playlist' src="https://open.spotify.com/embed?uri=spotify:user:1298427285:playlist:5Cgnluzrv0uQ7mVcrtYSSb"
+                        width="700px" height="580" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group" id="commentBox">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
                 </div>
             </div>
+
         </div>
 
 
 
         <!-- jQuery CDN -->
-        <script
-        src="https://code.jquery.com/jquery-3.2.1.js"
-        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
         <!-- Bootstrap Js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="./javascript/javascript.js"></script>
         <script src="./javascript/search.js"></script>
         <script>
             $(document).ready(() => {
-                localStorage.setItem('playlist_id','5Cgnluzrv0uQ7mVcrtYSSb');
+                localStorage.setItem('playlist_id', '5Cgnluzrv0uQ7mVcrtYSSb');
             });
         </script>
 </body>

@@ -182,9 +182,17 @@ a.article, a.article:hover {
     color: #fff !important;
 }
 
-.song-body {
+/* ---------------------------------------------------
+    MODAL STYLE
+----------------------------------------------------- */
+.modal-header {
+    background: #6d7fcc;
+    color: #fff;
 }
 
+#addFriendBtn {
+    background: #6d7fcc;
+}
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -192,6 +200,11 @@ a.article, a.article:hover {
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+    width: 100%;
+}
+
+#commentBox {
+    width: 335px;
 }
 
 /* ---------------------------------------------------
