@@ -45,7 +45,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 app.use(express.static('assets'));
-
+app.use(express.static(__dirname + '/assets/images'));
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
@@ -106,14 +106,13 @@ app.get('/callback', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           // var name = body["display_name"];
-          localStorage.setItem('user_id', body.id);
+          // localStorage.setItem('user_id', body.id);
           // localStorage.setItem('name', name);
         });
         localStorage.setItem('token', access_token);
         localStorage.setItem('refresh_token', refresh_token);
-
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/main.html');// +
+        res.redirect('/main.html');
         
 
           // querystring.stringify({
@@ -133,7 +132,7 @@ app.get('/callback', function(req, res) {
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
-  var refresh_token = req.query.refresh_token;
+  var refresh_token = localStorage.getItem('refresh_token');
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
@@ -147,15 +146,21 @@ app.get('/refresh_token', function(req, res) {
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
-      res.send({
-        'access_token': access_token
-      });
+      localStorage.setItem('token', access_token);
+      // res.send({
+      //   'access_token': access_token
+      // });
+      res.redirect('/main.html');
     }
-  });
+    else {
+      console.log(body);
+    }
+  }
+  );
 });
 
 
-app.post('/serach', (req, res) => {
+app.post('/search', (req, res) => {
   console.log('search');
   res.send("Post");
 });
