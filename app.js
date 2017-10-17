@@ -18,6 +18,11 @@ var client_id = 'ba1c7a8e08a84fa4ad7b70759f61cd64'; // Your client id
 var client_secret = 'f7cfa5010d9d40df91e459cf151d4975'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -100,15 +105,21 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          // var name = body["display_name"];
+          localStorage.setItem('user_id', body.id);
+          // localStorage.setItem('name', name);
         });
+        localStorage.setItem('token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));
+        res.redirect('/main.html');// +
+        
+
+          // querystring.stringify({
+          //   access_token: access_token,
+          //   refresh_token: refresh_token
+          // }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
