@@ -18,16 +18,15 @@ $(".search-form").submit((event) => {
 	}).done((response) => {
 		$(".playlist").hide();
 		var list = $('<ul>').addClass('song-list media-list');
-
-		console.log(response);
-		response.tracks.items.forEach((value, index, array) => {
-			var song = $('<li>').addClass('media');
+		var array = response.tracks.items.slice(0,10);
+		array.forEach((value, index, array) => {
+			var song = $('<li>').addClass('media background-color');
 			var img_div = $('<div>').addClass('media-left');
 			var clickable = $('<a>').attr('href', '#').data('id', value.id).addClass('song-button');
-			var img = $('<img>').addClass('media-object').attr('alt', 'Generic placeholder image');
+			var img = $('<img>').addClass('media-object img-circle').attr('alt', 'Generic placeholder image');
 			img_div.append(clickable.append(img));
 			var body = $('<div>').addClass('song-body media-body');
-			var title = $('<h5>').addClass('mt-0 mb-1 media-heading');
+			var title = $('<h4>').addClass('media-heading');
 			img.attr('src', value.album.images[2].url);
 			title.text(value.name);
 			body.text(value.artists[0].name);

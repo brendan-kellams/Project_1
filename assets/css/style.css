@@ -182,7 +182,17 @@ a.article, a.article:hover {
     color: #fff !important;
 }
 
-.song-body {
+
+/* Style changes made by Gus */
+
+.background-color {
+    background-color: #7386D5 !important;
+}
+.media {
+    border-radius: 1rem;
+    padding: 10px 10px 10px 10px;
+    color: white;
+    font-size: 1.5rem;
 }
 
 /* ---------------------------------------------------
