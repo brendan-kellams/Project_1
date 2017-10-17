@@ -2,7 +2,6 @@ $(".search-form").submit((event) => {
 	event.preventDefault();
 	// var input = parseSong($("#search").val());
 	var input = $('#search').val();
-	console.log(localStorage.getItem('token'));
 	$("#search").val("");
 	$.ajax({
 		headers: {
@@ -113,3 +112,9 @@ function parseSong (string) {
 }
 
 $(document).on('click', '.song-button', addSong);
+
+$(document).ready(() => {
+	var token = document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	console.log(token);
+	localStorage.setItem('token', token);
+});

@@ -147,9 +147,7 @@ app.get('/refresh_token', function(req, res) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
       localStorage.setItem('token', access_token);
-      // res.send({
-      //   'access_token': access_token
-      // });
+      res.cookie('access_token', access_token);
       res.redirect('/main.html');
     }
     else {
