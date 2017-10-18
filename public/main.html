@@ -20,29 +20,27 @@
 
 <body>
     <div class="wrapper">
+
+        <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h3>Friend Groups</h3>
                 <strong>FG</strong>
             </div>
-
             <ul class="list-unstyled components">
-                <li class="active">
+                <li>
                     <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false">
                         <i class="glyphicon glyphicon-headphones"></i>
                         Groups
                     </a>
                     <ul class="collapse list-unstyled" id="groupSubmenu">
-                        <!--li>
-                            <a class='groupList' href="#">Groups go here</a>
-                        </li -->
                     </ul>
                 </li>
                 <li>
-                    <!-- need to finish the modal -->
-                    <a href="#" data-toggle='modal' data-target='#'>
+                    <a href="#" data-toggle="modal" data-target="#myModal">
                         <i class="glyphicon glyphicon-plus-sign"></i>
-                        Add a Friend</a>
+                        Add a Friend
+                    </a>
                 </li>
 
                 <li>
@@ -50,20 +48,44 @@
                         <i class="glyphicon glyphicon-user"></i>
                         Friends
                     </a>
-                    <ul class="collapse list-unstyled" id="friendSubmenu">
-                        <!--li>
-                            <a href="#">Page2</a>
-                        </li-->
-                    </ul>
-                </li>
+                    <ul class="collapse list-unstyled" id="friendSubmenu"></ul>
+            </ul>
+            </li>
             </ul>
         </nav>
 
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Add a Friend</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="usernamename" class="control-label">Username</label>
+                                <input type="text" class="form-control" id="username">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="addFriendBtn" class="btn btn-primary" data-dismiss="modal">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
         <div id="content">
-            <nav class="navbar navbar-default col-lg-12">
-                <div class="container-fluid">
+            <nav class="container">
+                <div class="navbar navbar-default col-lg-12" id="navbar">
                     <div class="row">
-                        <div class="col-md-1">
+                        <div class="col-md-4" id="SBToggle">
                             <div class="navbar-header">
                                 <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                                     <i class="glyphicon glyphicon-align-left"></i>
@@ -72,7 +94,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-md-offset-2">
+                        <div class="col-md-4" id="searchBar">
                             <form method="post" action="/search" class="search-form">
                                 <div class="form-group has-feedback">
                                     <label for="search" class="sr-only">Search</label>
@@ -88,10 +110,10 @@
                                         <a href="/refresh_token">Home</a>
                                     </li>
                                     <li>
-                                        <a href="#">About</a>
+                                        <a href="#" class="nav-link">About</a>
                                     </li>
                                     <li>
-                                        <a href="#" id="contact">Contact</a>
+                                        <a href="#" class="nav-link">Contact</a>
                                     </li>
                                 </ul>
                             </div>
@@ -100,31 +122,44 @@
 
                 </div>
             </nav>
-
-            <div class="col-lg-12" id="media">
-<!--                 <iframe class="playlist" src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf" width="1210"
-                    height="580" frameborder="0" allowtransparency="true"></iframe> -->
-                    <iframe class ='playlist' src="https://open.spotify.com/embed?uri=spotify:user:1298427285:playlist:5Cgnluzrv0uQ7mVcrtYSSb" width="1210" height="580" frameborder="0" allowtransparency="true"></iframe>
+            <div class="row">
+                <div class="col-lg-1">
+                    <!-- <table>
+                        <thead>
+                            <tr>
+                                <th>Likes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <button class="glyphicon glyphicon-chevron-up"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+                <div class="col-lg-10" id="media">
+                    <iframe class='playlist' src="https://open.spotify.com/embed?uri=spotify:user:1298427285:playlist:5Cgnluzrv0uQ7mVcrtYSSb"
+                        width="1150px" height="580" frameborder="0" allowtransparency="true"></iframe>
+                </div>
             </div>
+
         </div>
 
-        <!-- <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>We need to add a friend here</p>
-            </div>
-        </div> -->
 
 
         <!-- jQuery CDN -->
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
         <!-- Bootstrap Js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="./javascript/javascript.js"></script>
         <script src="./javascript/search.js"></script>
         <script>
             $(document).ready(() => {
-                localStorage.setItem('playlist_id','5Cgnluzrv0uQ7mVcrtYSSb');
+                localStorage.setItem('playlist_id', '5Cgnluzrv0uQ7mVcrtYSSb');
             });
         </script>
 </body>

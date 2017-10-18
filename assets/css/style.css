@@ -3,7 +3,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: #7E827A;
 }
 
 p {
@@ -11,28 +11,57 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
+    color: #F0E7E3;
 }
 
 a, a:hover, a:focus {
-    color: inherit;
+    color: #F0E7E3;
     text-decoration: none;
     transition: all 0.3s;
 }
 
 .navbar {
     padding: 15px 10px;
-    background: #fff;
+    background: #2F343B;
     border: none;
-    border-radius: 0;
+    border-radius: .5em;
     margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); 
 }
+
+.nav-link {
+    color: #F0E7E3 !important;
+}
+
+#bs-example-navbar-collapse-1 {
+    padding-right: 5px;
+}
+
+#searchBar {
+    padding-top: 7px;
+}
+
+#SBToggle {
+    padding-right: 5px;
+}
+
 
 .navbar-btn {
     box-shadow: none;
     outline: none !important;
     border: none;
+    background: #F0E7E3;
+    color: #2F343B;
+}
+
+.navbar-btn:hover {
+    color: #7386D5;
+    background: #F0E7E3;
+}
+
+.navbar-btn:focus {
+    background: #F0E7E3;
+    color: #2F343B;
 }
 
 .line {
@@ -47,6 +76,10 @@ a, a:hover, a:focus {
     align-items: stretch;
 }
 
+iframe {
+    border-radius: .5em;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -56,7 +89,7 @@ a, a:hover, a:focus {
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-    background: #7386D5;
+    background: #2F343B;
     color: #fff;
     transition: all 0.3s;
 }
@@ -83,7 +116,7 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #2F343B;
 }
 
 #sidebar ul.components {
@@ -128,12 +161,12 @@ a, a:hover, a:focus {
 }
 #sidebar ul li a:hover {
     color: #7386D5;
-    background: #fff;
+    background: #2F343B;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #2F343B;
 }
 
 
@@ -157,7 +190,7 @@ a[aria-expanded="true"]::before {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #2F343B;
 }
 
 ul.CTAs {
@@ -194,7 +227,19 @@ a.article, a.article:hover {
     color: white;
     font-size: 1.5rem;
 }
+/* ---------------------------------------------------
+    MODAL STYLE
+----------------------------------------------------- */
+.modal-header {
+    background: #2F343B;
+    color: #F0E7E3;
+>>>>>>> Brendan_Branch
+}
 
+#addFriendBtn {
+    background: #2F343B;
+    color: #F0E7E3;
+}
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -202,7 +247,9 @@ a.article, a.article:hover {
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+    width: 100%;
 }
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -270,41 +317,3 @@ a.article, a.article:hover {
     }
 }
 
-/* MODAL */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}

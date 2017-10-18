@@ -1,36 +1,29 @@
 //=====================================================================
 // This is used to trigger the toggle button to toggle the sidebar menu
 //=====================================================================
+
 $(document).ready(function () {
+    $('#sidebar').toggleClass('active');
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
     });
 });
-
+var collapsed = true;
 // this is used to reshape the contents when hitting the toggle button
 $('#sidebarCollapse').on('click', function () {
-    if ($('iframe').width() === 1210) {
-        $('iframe').css('width', '1370px');
+    if (collapsed) {
+        $('iframe').css('width', '1080px');
     } else {
-        $('iframe').css('width', '1210px');;
+        $('iframe').css('width', '1150px');
     }
+    collapsed = !collapsed;
+    
+});
+
+// the modal
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
 });
 
 
-// this is used to get the modal working when adding a friend
-
-// var modal = $('#myModal');
-
-// var link = $('#addFriend');
-
-// var span = $('.close')[0];
-
-// link.onclick = function() {
-//     modal.style.display = "block";
-// }
-
-// window.onclick = function(event) {
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
-// }
+// like counter
