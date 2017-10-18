@@ -219,12 +219,12 @@ a.article, a.article:hover {
 /* Style changes made by Gus */
 
 .background-color {
-    background-color: #7386D5 !important;
+    background-color: #2F343B !important;
 }
 .media {
     border-radius: 1rem;
     padding: 10px 10px 10px 10px;
-    color: white;
+    color: #F0E7E3;
     font-size: 1.5rem;
 }
 /* ---------------------------------------------------
@@ -233,7 +233,6 @@ a.article, a.article:hover {
 .modal-header {
     background: #2F343B;
     color: #F0E7E3;
->>>>>>> Brendan_Branch
 }
 
 #addFriendBtn {
