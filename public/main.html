@@ -24,8 +24,8 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Friend Groups</h3>
-                <strong>FG</strong>
+                <h3>David's Hits</h3>
+                <strong>DH</strong>
             </div>
             <ul class="list-unstyled components">
                 <li>
@@ -44,13 +44,19 @@
                 </li>
 
                 <li>
-                    <a href="#friendSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <a href="#friendSubmenu" data-toggle= "collapse" aria-expanded="false">
                         <i class="glyphicon glyphicon-user"></i>
                         Friends
                     </a>
                     <ul class="collapse list-unstyled" id="friendSubmenu"></ul>
-            </ul>
-            </li>
+                </li>
+                <li>
+                    <a href="#topSongsSubmenu" data-toggle="collapse" aria-expanded="false">
+                        <i class="glyphicon glyphicon-music"></i>
+                        Top Songs
+                    </a>
+                    <ul class="collapse list-unstyled" id="topSongsSubmenu"></ul>
+                </li>
             </ul>
         </nav>
 
@@ -123,27 +129,21 @@
                 </div>
             </nav>
             <div class="row">
-                <div class="col-lg-1">
-                    <!-- <table>
-                        <thead>
-                            <tr>
-                                <th>Likes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <button class="glyphicon glyphicon-chevron-up"></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> -->
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <div id="likeBtn">
+                        <button href="#" class="btn btn-sq-lg btn-success">
+                            <i id="thumbUp" class="glyphicon glyphicon-thumbs-up"></i>
+                            <br/> Like Current
+                            <br>Song
+                        </button>
+                    </div>
                 </div>
-                <div class="col-lg-10" id="media">
+            </div>
+            <div class="row">
+                <div class="col-lg-12" id="media">
                     <iframe class='playlist' src="https://open.spotify.com/embed?uri=spotify:user:1298427285:playlist:5Cgnluzrv0uQ7mVcrtYSSb"
-                        width="1150px" height="580" frameborder="0" allowtransparency="true"></iframe>
+                        width="1318px" height="580" frameborder="0" allowtransparency="true"></iframe>
                 </div>
             </div>
 
