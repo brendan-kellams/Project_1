@@ -28,7 +28,7 @@
                 <strong>FG</strong>
             </div>
             <ul class="list-unstyled components">
-                <li class="active">
+                <li>
                     <a href="#groupSubmenu" data-toggle="collapse" aria-expanded="false">
                         <i class="glyphicon glyphicon-headphones"></i>
                         Groups
@@ -49,8 +49,8 @@
                         Friends
                     </a>
                     <ul class="collapse list-unstyled" id="friendSubmenu"></ul>
-                    </ul>
-                </li>
+            </ul>
+            </li>
             </ul>
         </nav>
 
@@ -74,7 +74,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="addFriendBtn" class="btn btn-primary">Add</button>
+                        <button type="button" id="addFriendBtn" class="btn btn-primary" data-dismiss="modal">Add</button>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <nav class="container">
                 <div class="navbar navbar-default col-lg-12" id="navbar">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="SBToggle">
                             <div class="navbar-header">
                                 <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                                     <i class="glyphicon glyphicon-align-left"></i>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="searchBar">
                             <form method="post" action="/search" class="search-form">
                                 <div class="form-group has-feedback">
                                     <label for="search" class="sr-only">Search</label>
@@ -107,13 +107,13 @@
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
-                                        <a href="#">Home</a>
+                                        <a href="#" class="nav-link">Home</a>
                                     </li>
                                     <li>
-                                        <a href="#">About</a>
+                                        <a href="#" class="nav-link">About</a>
                                     </li>
                                     <li>
-                                        <a href="#" id="contact">Contact</a>
+                                        <a href="#" class="nav-link">Contact</a>
                                     </li>
                                 </ul>
                             </div>
@@ -124,7 +124,7 @@
             </nav>
             <div class="row">
                 <div class="col-lg-1">
-                    <table>
+                    <!-- <table>
                         <thead>
                             <tr>
                                 <th>Likes</th>
@@ -132,23 +132,18 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <div class="upvote">
-                                    <a class="upvote"></a>
-                                    <span class="count">6</span>
-                                </div>
+                                <td>
+                                    <div>
+                                        <button class="glyphicon glyphicon-chevron-up"></button>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
-                <div class="col-lg-7" id="media">
+                <div class="col-lg-10" id="media">
                     <iframe class='playlist' src="https://open.spotify.com/embed?uri=spotify:user:1298427285:playlist:5Cgnluzrv0uQ7mVcrtYSSb"
-                        width="700px" height="580" frameborder="0" allowtransparency="true"></iframe>
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group" id="commentBox">
-                        <label for="comment">Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
-                    </div>
+                        width="1150px" height="580" frameborder="0" allowtransparency="true"></iframe>
                 </div>
             </div>
 
