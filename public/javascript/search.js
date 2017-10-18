@@ -111,10 +111,17 @@ function parseSong (string) {
   return string.replace(regex_2, '');
 }
 
-$(document).on('click', '.song-button', addSong);
 
+
+//Parsing cookie
 $(document).ready(() => {
 	var token = document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	var name = document.cookie.replace(/(?:(?:^|.*;\s*)name\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 	console.log(token);
 	localStorage.setItem('token', token);
+	localStorage.setItem('name', name);
+
+	//Dynamically add songs
+	$(document).on('click', '.song-button', addSong);
+
 });
