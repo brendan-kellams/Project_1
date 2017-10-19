@@ -18,6 +18,11 @@ var client_id = 'ba1c7a8e08a84fa4ad7b70759f61cd64'; // Your client id
 var client_secret = 'f7cfa5010d9d40df91e459cf151d4975'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -40,7 +45,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 app.use(express.static('assets'));
-
+app.use(express.static(__dirname + '/assets/images'));
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
@@ -100,15 +105,20 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          // var name = body["display_name"];
+          // localStorage.setItem('user_id', body.id);
+          // localStorage.setItem('name', name);
         });
-
+        localStorage.setItem('token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));
+        res.redirect('/main.html');
+        
+
+          // querystring.stringify({
+          //   access_token: access_token,
+          //   refresh_token: refresh_token
+          // }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
@@ -122,7 +132,7 @@ app.get('/callback', function(req, res) {
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
-  var refresh_token = req.query.refresh_token;
+  var refresh_token = localStorage.getItem('refresh_token');
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
@@ -136,15 +146,19 @@ app.get('/refresh_token', function(req, res) {
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
-      res.send({
-        'access_token': access_token
-      });
+      localStorage.setItem('token', access_token);
+      res.cookie('access_token', access_token);
+      res.redirect('/main.html');
     }
-  });
+    else {
+      console.log(body);
+    }
+  }
+  );
 });
 
 
-app.post('/serach', (req, res) => {
+app.post('/search', (req, res) => {
   console.log('search');
   res.send("Post");
 });

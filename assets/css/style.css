@@ -215,6 +215,18 @@ a.article, a.article:hover {
     color: #fff !important;
 }
 
+
+/* Style changes made by Gus */
+
+.background-color {
+    background-color: #2F343B !important;
+}
+.media {
+    border-radius: 1rem;
+    padding: 10px 10px 10px 10px;
+    color: #F0E7E3;
+    font-size: 1.5rem;
+}
 /* ---------------------------------------------------
     MODAL STYLE
 ----------------------------------------------------- */
