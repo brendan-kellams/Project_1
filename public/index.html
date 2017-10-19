@@ -4,7 +4,6 @@
     <title>Example of the Authorization Code flow with Spotify</title>
     <style type="text/css">
       #login, #loggedin {
-        display: none;
       }
       .text-overflow {
         overflow: hidden;
@@ -13,21 +12,38 @@
         width: 500px;
       }
       .title {
-        font-size: 5rem;
+        font-size: 10em;
         color: white;
+        -webkit-box-reflect: below -56px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(#eee, 0.7)));
+        text-shadow: 0 -2px 1px rgba(black, 0.5);
+
+      }
+      .row {
+        height: 100%;
+      }
+      .vertical-center {
+        min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+        min-height: 100vh; /* These two lines are counted as one :-)       */
+        display: flex;
+        align-items: center;
       }
     </style>
   </head>
 
-  <body style="background-color: #2F343B">
+  <body style="background-color: #2F343B" class="vertical-center">
     <div class="container">
-      <div id="login row justify-content-center">
-        <div class="col-12 text-center"> 
-          <img src="./logo.png" alt="nothing" height="300" width="1000">
-          <h1 class="title my-5">Connect</h1>
+      <div class="row justify-content-end">
+        <div class="col-2 offset-10">
           <a href="/login" class="btn btn-secondary">Log in</a>
         </div>
       </div>
+      <div id="login" class="row">
+        <div class="col-12 text-center"> 
+<!--           <img src="./logo.png" alt="nothing" height="300" width="1000">
+ -->          <h1 class="title my-5">c<span><img src="./o.png" alt="" height="90" width="90"></span>nnect</h1>
+        </div>
+      </div>
+    </div>
 <!--       <div id="loggedin">
         <div id="user-profile">
         </div>
@@ -35,7 +51,7 @@
         </div>
         <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
       </div>
- -->    </div>
+ -->  
 
 <!--     <script id="user-profile-template" type="text/x-handlebars-template">
       <h1>Logged in as {{display_name}}</h1>
