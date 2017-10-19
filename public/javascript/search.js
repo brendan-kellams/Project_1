@@ -103,7 +103,7 @@ function addSong() {
 		//Force reload after 30 seconds
 		setTimeout(() => {
 			$('.playlist').attr('src', $('.playlist').attr('src'));
-		}, 15000);
+		}, 1000);
 		
 
 	});
