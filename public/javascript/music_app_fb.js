@@ -59,7 +59,7 @@ function refreshUsers()
 
 
 //====================================================================
-//  onClick()
+//  onClick() event handler for .groupList
 //====================================================================
 $(document).on("click", ".groupList", function() {
 
@@ -76,56 +76,67 @@ function addUser(){
 
   event.preventDefault();
 
-  var addUser = false;
+  var addUser = true;
   var userid = $("#username").val().trim();
 
-  console.log(userid);
-
+  // Check to see if the user already exists 
   for (var i=0; i < users.length; i++)
   {
       user = users[i];
 
-      console.log(user);
-
       if (user.userID === userid)
       {
         addUser = false;
-      }
-      else
-      {
-        addUser = true;
+        break;
       }
   }
 
+  // If this is a new user, then add it to the Users list in the Firebase
   if (addUser)
   {
-      users.length = 0;
-
       database.ref('/users/' + userid).set({
-                UserID: userid,
+                userID: userid,
                 userName: ""
       });
+  }
 
-      for (var i=0; i < groups.length; i++)
-      {
-        group = groups[i];
-        if (group.groupName === currentGroup)
+  //Now check the users in the current selected group
+
+  for (var i=0; i < groups.length; i++)
+  {
+    addUser = true;
+    group = groups[i];
+
+    if (group.groupName === currentGroup)
+    {
+        for (var j=0; j < group.users.length; j++)
         {
-            groups.length = 0;
-            group.users.push(userid);
+          if (userid === group.users[j].userID)
+          {
+            addUser = false;
+            break;
+          }
+        }
+
+        if (addUser)
+        {
+            user = {userID:userid, userName:""};
+            group.users.push(user);
 
             database.ref('/groups/'+ currentGroup).set({
             groupName: currentGroup,
             playListID: group.playListID,
             users: group.users
             });
-            break;
-        }
-      }
-      refreshUsers(userid);
-  }
 
-}
+            refreshUsers(userid);
+        }
+        break;
+    } //if
+
+  } //for 
+
+} // end of addUser
 
 
 //====================================================================
@@ -134,9 +145,7 @@ function addUser(){
 database.ref('/groups').on("child_added", function(childSnapshot, prevChildKey) {
 
   group = childSnapshot.val();
-  
   groups.push(group);
-
   refreshGroups(group.groupName);
 });
 
@@ -148,6 +157,4 @@ database.ref('/users').on("child_added", function(childSnapshot, prevChildKey) {
 
   user = childSnapshot.val();
   users.push(user);
-
-  console.log(users);
 });
