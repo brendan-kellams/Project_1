@@ -24,6 +24,10 @@ var groups = [];
 var user = {userID:"", userName:""};
 var users = [];
 
+var song = {songID:"", rating:1};
+var playList = {playListID:"", songList:[]}
+var playListTable = [];
+
 var currentGroup = "Group1";
 
 
@@ -55,6 +59,7 @@ function refreshUsers()
             break;
       }
   }
+  return group.playListID;
 }
 
 
@@ -65,7 +70,21 @@ $(document).on("click", ".groupList", function() {
 
   currentGroup = $(this).text();
   console.log(currentGroup);
-  refreshUsers();
+  var playListID = refreshUsers();
+
+  // Retrieve the playlist for the selected group
+
+  for (var i=0; i < playListTable.length; i++)
+  {
+    playList = playListTable[i];
+
+    if (playList.playListID === playListID)
+      break;
+  }
+
+  console.log(playList);
+  return playList;
+
 });
 
 
@@ -157,4 +176,16 @@ database.ref('/users').on("child_added", function(childSnapshot, prevChildKey) {
 
   user = childSnapshot.val();
   users.push(user);
+});
+
+
+//====================================================================
+//  database.ref(/playlists) Event Listener
+//====================================================================
+database.ref('/playlists').on("child_added", function(childSnapshot, prevChildKey) {
+
+  playList = childSnapshot.val();
+  playListTable.push(playList);
+
+  console.log(playListTable);
 });
