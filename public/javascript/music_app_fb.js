@@ -10,31 +10,63 @@ var config = {
     messagingSenderId: "317115906434"
 };
 firebase.initializeApp(config);
+
 var database = firebase.database();
 
 
+//==============================================================
+//                      Global Variables
+//==============================================================
+
+var group = {groupName:"", playListID:"", users:[]};
+var groups = [];
+
+var user = {userID:"", userName:""};
+var users = [];
+
+var currentGroup = "Group1";
+
+
 //====================================================================
-//  displayUsers()
+//  refreshGroups()
 //====================================================================
-function displayUsers(groupName, userName)
+function refreshGroups(groupName)
 {
- 	//$("#groupSubmenu").append("<li></li>" + userName);
  	$("#groupSubmenu").append('<li class="groupList"><a href="#">'+groupName+'</a></li>');
- 	//$("#friendSubmenu").append('<li class="collapse list-unstyled"><a href="#">'+userName+'</a></li>');
- 	$("#friendSubmenu").append('<li><a href="#">'+userName+'</a></li>');
-};
+}
+
+
+//====================================================================
+//  refreshUsers()
+//====================================================================
+function refreshUsers()
+{
+  for (var i=0; i < groups.length; i++)
+  {
+      group = groups[i];
+      if (group.groupName === currentGroup)
+      {
+            $("#friendSubmenu").empty()
+
+            for (var j=0; j < group.users.length; j++)
+            {
+              $("#friendSubmenu").append('<li><a href="#">'+group.users[j].userID+'</a></li>');
+            }
+            break;
+      }
+  }
+}
 
 
 //====================================================================
 //  onClick()
 //====================================================================
+$(document).on("click", ".groupList", function() {
 
-//$(document).on("click", ".groupList", processGroup);
-
-function processGroup()
-{
-
-}
+  currentGroup = $(this).text();
+  console.log(currentGroup);
+  refreshUsers();
+});
 
 
 //====================================================================
@@ -44,31 +76,78 @@ function addUser(){
 
   event.preventDefault();
 
-  var userName = $("#user-name").val().trim();
-  var groupName = $("#group-name").val().trim();
-  
-  database.ref('/groups').push({
-        username: userName,
-        groupname: groupName,
-        date: firebase.database.ServerValue.TIMESTAMP
-  });
+  var addUser = false;
+  var userid = $("#username").val().trim();
 
-  $("#user-name").val("");
-  $("#group-name").val("");
+  console.log(userid);
+
+  for (var i=0; i < users.length; i++)
+  {
+      user = users[i];
+
+      console.log(user);
+
+      if (user.userID === userid)
+      {
+        addUser = false;
+      }
+      else
+      {
+        addUser = true;
+      }
+  }
+
+  if (addUser)
+  {
+      users.length = 0;
+
+      database.ref('/users/' + userid).set({
+                UserID: userid,
+                userName: ""
+      });
+
+      for (var i=0; i < groups.length; i++)
+      {
+        group = groups[i];
+        if (group.groupName === currentGroup)
+        {
+            groups.length = 0;
+            group.users.push(userid);
+
+            database.ref('/groups/'+ currentGroup).set({
+            groupName: currentGroup,
+            playListID: group.playListID,
+            users: group.users
+            });
+            break;
+        }
+      }
+      refreshUsers(userid);
+  }
+
 }
 
 
 //====================================================================
-//  database.ref()
+//  database.ref(/groups) Event Listener
 //====================================================================
 database.ref('/groups').on("child_added", function(childSnapshot, prevChildKey) {
 
-  console.log(childSnapshot.val());
+  group = childSnapshot.val();
+  
+  groups.push(group);
 
-  // Store everything into a variable.
-  var groupName = childSnapshot.val().groupname;
-  var userName = childSnapshot.val().username;
-
-  displayUsers(groupName, userName);
+  refreshGroups(group.groupName);
 });
 
+
+//====================================================================
+//  database.ref(/users) Event Listener
+//====================================================================
+database.ref('/users').on("child_added", function(childSnapshot, prevChildKey) {
+
+  user = childSnapshot.val();
+  users.push(user);
+
+  console.log(users);
+});
