@@ -13,9 +13,6 @@ $(document).ready(function () {
 $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').focus()
 });
-<<<<<<< Updated upstream
 
 
 // like counter
-=======
->>>>>>> Stashed changes
