@@ -1,12 +1,3 @@
-/**
- * This is an example of a basic node.js script that performs
- * the Authorization Code oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
- */
-
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
@@ -52,7 +43,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public';
+  var scope = 'user-read-private user-read-email playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-read-currently-playing user-read-playback-state';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -102,17 +93,25 @@ app.get('/callback', function(req, res) {
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
+        // console.log(response);
+        localStorage.setItem('token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          // var name = body["display_name"];
-          // localStorage.setItem('user_id', body.id);
-          // localStorage.setItem('name', name);
+          // var name = body.display_name;
+          // console.log(name);
+          // var id = body.id;
+          // console.log(id);
+          res.cookie('name', body.display_name);
+          res.cookie('id', body.id);
+          res.cookie('access_token', access_token);
+          res.redirect('/main.html');
+
         });
-        localStorage.setItem('token', access_token);
-        localStorage.setItem('refresh_token', refresh_token);
+
+
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/main.html');
         
 
           // querystring.stringify({
@@ -147,7 +146,9 @@ app.get('/refresh_token', function(req, res) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
       localStorage.setItem('token', access_token);
+      // console.log(body);
       res.cookie('access_token', access_token);
+      res.cookie('name', body.display_name);
       res.redirect('/main.html');
     }
     else {

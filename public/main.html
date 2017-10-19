@@ -13,6 +13,9 @@
     <!-- Css Link -->
     <link rel="stylesheet" href="./css/style.css">
 
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src="./javascript/music_app_fb.js"></script>
@@ -80,7 +83,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="addFriendBtn" class="btn btn-primary" data-dismiss="modal">Add</button>
+                        <button type="button" id="addFriendBtn" class="btn btn-primary" data-dismiss="modal" onClick=addUser()>Add</button>
                     </div>
                 </div>
             </div>
@@ -147,8 +150,6 @@
                             width="100%" height="580" frameborder="0" allowtransparency="true"></iframe>
                     </div>
                 </div>
-            </div>
-
 
         </div>
 
@@ -162,7 +163,6 @@
         <script src="./javascript/search.js"></script>
         <script>
             $(document).ready(() => {
-                localStorage.setItem('playlist_id', '5Cgnluzrv0uQ7mVcrtYSSb');
             });
         </script>
 </body>

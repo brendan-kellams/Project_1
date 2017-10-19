@@ -39,21 +39,22 @@ $(".search-form").submit((event) => {
 	}).error((response) => {console.log(response)});
 });
 
-// $("#contact").on("click", (event) => {
-// 	console.log(localStorage.getItem("token"));
-// 	$.ajax({
-// 		headers: {
-// 			Authorization: "Bearer " + localStorage.getItem("token")
-// 		},
-// 		url: "https://api.spotify.com/v1/me/playlists",
-// 		method: "GET",
-// 		data: {
-// 		},
+$("#contact").on("click", (event) => {
+	$.ajax({
+		headers: {
+			Authorization: "Bearer " + localStorage.getItem("token")
+		},
+		url: "https://api.spotify.com/v1/me/player/currently-playing",
+		method: "GET",
+		data: {
+		},
 
-// 	}).done((response) => {
-// 		console.log(response);
-// 	});
-// });
+	}).done((response) => {
+		console.log(response);
+	}).error((response) => {
+		console.log(response);
+	});
+});
 
 function addSong() {
 	console.log('Song added');
@@ -111,10 +112,22 @@ function parseSong (string) {
   return string.replace(regex_2, '');
 }
 
-$(document).on('click', '.song-button', addSong);
 
+
+//Parsing cookie
 $(document).ready(() => {
 	var token = document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	var name = document.cookie.replace(/(?:(?:^|.*;\s*)name\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 	console.log(token);
 	localStorage.setItem('token', token);
+	localStorage.setItem('name', name);
+
+	//Dynamically add songs
+	$(document).on('click', '.song-button', addSong);
+
+
+	//Testing iframes
+	$(document).on('click', '.track-row-info', function() {
+		console.log($(this));
+	})
 });
