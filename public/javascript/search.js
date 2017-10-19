@@ -39,6 +39,7 @@ $(".search-form").submit((event) => {
 	}).error((response) => {console.log(response)});
 });
 
+/* Function call to query the current song */
 $("#contact").on("click", (event) => {
 	$.ajax({
 		headers: {
@@ -48,13 +49,33 @@ $("#contact").on("click", (event) => {
 		method: "GET",
 		data: {
 		},
-
+		error: (response) => {
+			console.log(response);
+		}
 	}).done((response) => {
-		console.log(response);
-	}).error((response) => {
 		console.log(response);
 	});
 });
+
+/* Function call to query the current song */
+$("#about").on("click", (event) => {
+	$.ajax({
+		headers: {
+			Authorization: "Bearer " + localStorage.getItem("token")
+		},
+		url: "https://api.spotify.com/v1/users/1298427285/playlists/6J2UwWFWSTzT5yg0BxLpOp/tracks",
+		method: "GET",
+		data: {
+		},
+		error: (response) => {
+			console.log(response);
+		}
+	}).done((response) => {
+		console.log(response);
+	});
+});
+
+
 
 function addSong() {
 	console.log('Song added');

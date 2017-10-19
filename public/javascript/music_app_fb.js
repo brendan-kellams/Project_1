@@ -25,7 +25,9 @@ var user = {userID:"", userName:""};
 var users = [];
 
 var currentGroup = "Group1";
-
+var playlist_1 = "https://open.spotify.com/user/1298427285/playlist/6J2UwWFWSTzT5yg0BxLpOp";
+var playlist_2 = "https://open.spotify.com/user/1298427285/playlist/4gomZsrwq4NyrkaNe7L7yd";
+var playlist_3 = "https://open.spotify.com/user/1298427285/playlist/2vgjPlRpMdwycbYDytQnw8";
 
 //====================================================================
 //  refreshGroups()

@@ -100,7 +100,6 @@ app.get('/callback', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           // var name = body.display_name;
-          // console.log(name);
           // var id = body.id;
           // console.log(id);
           res.cookie('name', body.display_name);
