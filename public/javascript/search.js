@@ -82,7 +82,7 @@ function addSong() {
 	var id = $(this).data('id');
 	$('.song-list').remove();
 	$('.playlist').show();
-	var url = "https://api.spotify.com/v1/users/" + localStorage.getItem('user_id') + "/playlists/" + localStorage.getItem('current_playlist')
+	var url = "https://api.spotify.com/v1/users/" + localStorage.getItem('id') + "/playlists/" + localStorage.getItem('current_playlist')
 	+ "/tracks?position=0&";
 	var track = "uris=spotify:track:" + id;
 	url += track;
@@ -103,7 +103,7 @@ function addSong() {
 		//Force reload after 30 seconds
 		setTimeout(() => {
 			$('.playlist').attr('src', $('.playlist').attr('src'));
-		}, 1000);
+		}, 15000);
 		
 
 	});
