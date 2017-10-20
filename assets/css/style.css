@@ -29,20 +29,37 @@ a, a:hover, a:focus {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); 
 }
 
+#likeBtn {
+    padding-left: 130px;
+    padding-top: 14px;
+}
+
+#thumbUp {
+    font-size: 15px;
+    text-align: auto;
+}
+
 .nav-link {
     color: #F0E7E3 !important;
+    text-align: center;
 }
+
 
 #bs-example-navbar-collapse-1 {
     padding-right: 5px;
 }
 
 #searchBar {
-    padding-top: 7px;
+    padding-top: 12px;
 }
 
 #SBToggle {
-    padding-right: 5px;
+   padding-left: 30px;
+   padding-top: 5px;
+}
+
+#navlink {
+    padding-top: 5px;
 }
 
 
@@ -78,6 +95,10 @@ a, a:hover, a:focus {
 
 iframe {
     border-radius: .5em;
+}
+
+#contact {
+    margin-right: 15px;
 }
 
 /* ---------------------------------------------------
@@ -155,7 +176,7 @@ iframe {
 
 #sidebar.active a[aria-expanded="false"]::before, #sidebar.active a[aria-expanded="true"]::before {
     top: auto;
-    bottom: 5px;
+    bottom: 0px;
     right: 50%;
     transform: translateX(50%);
 }
@@ -227,6 +248,8 @@ a.article, a.article:hover {
     color: #F0E7E3;
     font-size: 1.5rem;
 }
+
+
 /* ---------------------------------------------------
     MODAL STYLE
 ----------------------------------------------------- */
@@ -247,16 +270,6 @@ a.article, a.article:hover {
     min-height: 100vh;
     transition: all 0.3s;
     width: 100%;
-}
-
-
-#likeBtn {
-    padding-left: 160px;
-    padding-bottom: 20px;
-}
-
-#thumbUp {
-    font-size: 30px;
 }
 
 /* ---------------------------------------------------

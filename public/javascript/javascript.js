@@ -6,6 +6,7 @@ $(document).ready(function () {
     $('#sidebar').toggleClass('active');
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
+        $('#likeBtn').show();
     });
 });
 
@@ -15,4 +16,5 @@ $('#myModal').on('shown.bs.modal', function () {
 });
 
 
-// like counter
+// 
+

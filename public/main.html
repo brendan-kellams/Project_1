@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- Css Link -->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
     <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
@@ -47,7 +47,7 @@
                 </li>
 
                 <li>
-                    <a href="#friendSubmenu" data-toggle= "collapse" aria-expanded="false">
+                    <a href="#friendSubmenu" data-toggle="collapse" aria-expanded="false">
                         <i class="glyphicon glyphicon-user"></i>
                         Friends
                     </a>
@@ -61,6 +61,7 @@
                     <ul class="collapse list-unstyled" id="topSongsSubmenu"></ul>
                 </li>
             </ul>
+
         </nav>
 
         <!-- Modal -->
@@ -94,7 +95,7 @@
             <nav class="container-fluid">
                 <div class="navbar navbar-default col-lg-12" id="navbar">
                     <div class="row">
-                        <div class="col-md-4" id="SBToggle">
+                        <div class="col-md-2" id="SBToggle">
                             <div class="navbar-header">
                                 <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                                     <i class="glyphicon glyphicon-align-left"></i>
@@ -112,7 +113,13 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-4">
+                        <div id="likeBtn" class="col-md-2">
+                            <button href="#" class="btn btn-success btn-sm" data-toggle="collapse" aria-expanded="false">
+                                <i id="thumbUp" class="glyphicon glyphicon-thumbs-up"></i>
+                                Like Current Song
+                            </button>
+                        </div>
+                        <div class="col-md-4" id="navlink">
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
@@ -131,18 +138,6 @@
 
                 </div>
             </nav>
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">
-                    <div id="likeBtn">
-                        <button href="#" class="btn btn-sq-lg btn-success">
-                            <i id="thumbUp" class="glyphicon glyphicon-thumbs-up"></i>
-                            <br/> Like Current
-                            <br>Song
-                        </button>
-                    </div>
-                </div>
-            </div>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12" id="media">
@@ -151,7 +146,7 @@
                     </div>
                 </div>
 
-        </div>
+            </div>
 
 
 
