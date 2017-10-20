@@ -7,7 +7,7 @@ var s = new Spotify();
 
 var client_id = 'ba1c7a8e08a84fa4ad7b70759f61cd64'; // Your client id
 var client_secret = 'f7cfa5010d9d40df91e459cf151d4975'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'https://socialradio.rohnow.org/callback'; // Your redirect uri
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -32,7 +32,7 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 
 var app = express();
-
+var fs = require('fs');
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 app.use(express.static('assets'));
@@ -162,5 +162,16 @@ app.post('/search', (req, res) => {
   console.log('search');
   res.send("Post");
 });
-console.log('Listening on 8888');
-app.listen(8888);
+var key = fs.readFileSync('private.key');
+var cert = fs.readFileSync('socialradio.rohnow.org.crt');
+var options = {
+        key: key,
+        cert: cert
+};
+var https = require('https');
+https.createServer(options, app).listen(443);
+console.log('Listening on 443')
+
+
+var http = require('http');
+http.createServer(app).listen(80)
