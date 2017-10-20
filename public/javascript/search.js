@@ -39,7 +39,6 @@ $(".search-form").submit((event) => {
 	})
 });
 
-/* Function call to query the current song */
 $("#contact").on("click", (event) => {
 	$.ajax({
 		headers: {
@@ -63,7 +62,7 @@ $("#about").on("click", (event) => {
 		headers: {
 			Authorization: "Bearer " + localStorage.getItem("token")
 		},
-		url: "https://api.spotify.com/v1/users/1298427285/playlists/6J2UwWFWSTzT5yg0BxLpOp/tracks",
+		url: `https://api.spotify.com/v1/users/1298427285/playlists/${localStorage.getItem('current_playlist')}/tracks`,
 		method: "GET",
 		data: {
 		},
@@ -78,7 +77,6 @@ $("#about").on("click", (event) => {
 
 
 function addSong() {
-	console.log('Song added');
 	var id = $(this).data('id');
 	$('.song-list').remove();
 	$('.playlist').show();
