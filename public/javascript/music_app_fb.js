@@ -17,7 +17,11 @@ var database = firebase.database();
 //                      Global Variables
 //==============================================================
 
-var group = {groupName:"", playListID:"", users:[]};
+var thisUserName = "";
+var thisUserID = "";
+var addThisUser = true;
+
+var group = {groupName:"", playListID:"", userList:[]};
 var groups = [];
 
 var user = {userID:"", userName:""};
@@ -28,9 +32,21 @@ var playList = {playListID:"", songList:[]}
 var playListTable = [];
 
 var currentGroup = "Group1";
+
 var playlist_1 = "https://open.spotify.com/user/1298427285/playlist/6J2UwWFWSTzT5yg0BxLpOp";
 var playlist_2 = "https://open.spotify.com/user/1298427285/playlist/4gomZsrwq4NyrkaNe7L7yd";
 var playlist_3 = "https://open.spotify.com/user/1298427285/playlist/2vgjPlRpMdwycbYDytQnw8";
+
+
+//=================================================================
+// $(document).ready()
+//=================================================================
+$(document).ready(function() {
+
+  thisUserName = localStorage.getItem("name");
+  thisUserID = localStorage.getItem("id");
+});
+
 
 //====================================================================
 //  refreshGroups()
@@ -53,9 +69,9 @@ function refreshUsers()
       {
             $("#friendSubmenu").empty()
 
-            for (var j=0; j < group.users.length; j++)
+            for (var j=0; j < group.userList.length; j++)
             {
-              $("#friendSubmenu").append('<li><a href="#">'+group.users[j].userID+'</a></li>');
+              $("#friendSubmenu").append('<li><a href="#">'+group.userList[j].userName+'</a></li>');
             }
             break;
       }
@@ -70,10 +86,9 @@ function refreshUsers()
 $(document).on("click", ".groupList", function() {
 
   currentGroup = $(this).text();
-  console.log(currentGroup);
   var playListID = refreshUsers();
 
-  // Retrieve the playlist for the selected group
+  // Retrieve the playlist for the selected group with playListID
 
   for (var i=0; i < playListTable.length; i++)
   {
@@ -82,79 +97,104 @@ $(document).on("click", ".groupList", function() {
     if (playList.playListID === playListID)
       break;
   }
-
-  console.log(playList);
   return playList;
+});
 
+
+
+//====================================================================
+//  onClick() event handler for #sidebar
+//====================================================================
+$(document).on("click", "#sidebar", function() {
+
+  if (addThisUser === true)
+  {
+      // check to see if the app user's username and id already exists 
+      for (var i=0; i < users.length; i++)
+      {
+          user = users[i];
+
+          if (user.userID === thisUserID)
+          {
+            addThisUser = false;
+            break;
+          }
+      }
+
+      // if this is a new user, then add it to the Users list in the Firebase 
+      if (addThisUser === true)
+      {
+          database.ref('/users/' + thisUserID).set({
+                    userID: thisUserID,
+                    userName: thisUserName
+          });
+
+          addThisUser = false;
+      }
+  }
 });
 
 
 //====================================================================
-//  addUser()
+//  addUser() adds a new member to the selected Group
 //====================================================================
-function addUser(){
-
+function addUser()
+{
   event.preventDefault();
 
-  var addUser = true;
-  var userid = $("#username").val().trim();
+  var addNewUser = false;
+  var username = $("#username").val().trim();
 
-  // Check to see if the user already exists 
+  // Make sure the given username exists
+
   for (var i=0; i < users.length; i++)
   {
-      user = users[i];
+          user = users[i];
 
-      if (user.userID === userid)
-      {
-        addUser = false;
-        break;
-      }
-  }
-
-  // If this is a new user, then add it to the Users list in the Firebase
-  if (addUser)
-  {
-      database.ref('/users/' + userid).set({
-                userID: userid,
-                userName: ""
-      });
-  }
-
-  //Now check the users in the current selected group
-
-  for (var i=0; i < groups.length; i++)
-  {
-    addUser = true;
-    group = groups[i];
-
-    if (group.groupName === currentGroup)
-    {
-        for (var j=0; j < group.users.length; j++)
-        {
-          if (userid === group.users[j].userID)
+          if (user.userName === username)
           {
-            addUser = false;
+            addNewUser = true;
             break;
           }
-        }
+  }
 
-        if (addUser)
+  //Now check if the user is in the current selected group
+
+  if (addNewUser)
+  {
+      for (var i=0; i < groups.length; i++)
+      {
+        group = groups[i];
+
+        if (group.groupName === currentGroup)
         {
-            user = {userID:userid, userName:""};
-            group.users.push(user);
+            for (var j=0; j < group.userList.length; j++)
+            {
+              if (username === group.userList[j].userName)
+              {
+                addNewUser = false;
+                break;
+              }
+            }
 
-            database.ref('/groups/'+ currentGroup).set({
-            groupName: currentGroup,
-            playListID: group.playListID,
-            users: group.users
-            });
+            if (addNewUser)
+            {
+                var userName = {userName:username};
+                group.userList.push(userName);
+                database.ref('/groups/'+ currentGroup).set({
+                groupName: currentGroup,
+                playListID: group.playListID,
+                userList: group.userList
+                });
 
-            refreshUsers(userid);
-        }
-        break;
-    } //if
+                refreshUsers(username);
+            }
+            break;
+        } //if
 
-  } //for 
+      } //for 
+
+  }// if
 
 } // end of addUser
 
@@ -187,6 +227,4 @@ database.ref('/playlists').on("child_added", function(childSnapshot, prevChildKe
 
   playList = childSnapshot.val();
   playListTable.push(playList);
-
-  console.log(playListTable);
 });
