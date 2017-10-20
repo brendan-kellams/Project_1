@@ -13,7 +13,6 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-
 //==============================================================
 //                      Global Variables
 //==============================================================

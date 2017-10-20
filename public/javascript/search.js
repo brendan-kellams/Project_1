@@ -82,7 +82,7 @@ function addSong() {
 	var id = $(this).data('id');
 	$('.song-list').remove();
 	$('.playlist').show();
-	var url = "https://api.spotify.com/v1/users/" + localStorage.getItem('user_id') + "/playlists/" + localStorage.getItem('playlist_id')
+	var url = "https://api.spotify.com/v1/users/" + localStorage.getItem('user_id') + "/playlists/" + localStorage.getItem('current_playlist')
 	+ "/tracks?position=0&";
 	var track = "uris=spotify:track:" + id;
 	url += track;
@@ -139,16 +139,13 @@ function parseSong (string) {
 $(document).ready(() => {
 	var token = document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 	var name = document.cookie.replace(/(?:(?:^|.*;\s*)name\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-	console.log(token);
+	var id = document.cookie.replace(/(?:(?:^|.*;\s*)id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 	localStorage.setItem('token', token);
 	localStorage.setItem('name', name);
+	localStorage.setItem('id', id);
 
 	//Dynamically add songs
 	$(document).on('click', '.song-button', addSong);
 
 
-	//Testing iframes
-	$(document).on('click', '.track-row-info', function() {
-		console.log($(this));
-	})
 });
