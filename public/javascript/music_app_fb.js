@@ -89,7 +89,10 @@ function refreshUsers()
             break;
       }
   }
-  return group.embedded;
+  return { 
+    embedded: group.embedded,
+    playlistID: group.playListID
+  };
 }
 
 
@@ -99,8 +102,10 @@ function refreshUsers()
 $(document).on("click", ".groupList", function() {
 
   currentGroup = $(this).text();
-  var playListID = refreshUsers();
-  console.log(playListID);
+  var info = refreshUsers();
+  var playListID = info.embedded;
+  var shortID = info.playlistID;
+  console.log(info);
 
   //Added more change because the other call doesn't work
   updateFriendsList();
@@ -108,7 +113,7 @@ $(document).on("click", ".groupList", function() {
   //Do a playlist change
   $('.playlist').attr('src', playListID);
   //Update local storage for add song
-  localStorage.setItem('current_playlist', playListID);
+  localStorage.setItem('current_playlist', shortID);
   for (var i=0; i < playListTable.length; i++)
   {
     playList = playListTable[i];
