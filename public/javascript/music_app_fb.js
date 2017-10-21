@@ -79,7 +79,7 @@ function refreshTopSongs(id) {
     $('#topSongsSubmenu').empty();
     snapshot.forEach((value) => {
       var name = (value.val().songName);
-      $('#topSongsSubmenu').append('<li><a href="#">'+name+'</a></li>');
+      $('#topSongsSubmenu').prepend('<li><a href="#">'+name+'</a></li>');
     });
   })
 }
@@ -306,7 +306,7 @@ database.ref('/playlists').on("value", function(snapShot, prevChildKey) {
 
     playListTable.push(playList);
     // console.log(playList);
-    refreshTopSongs();
+    refreshTopSongs(localStorage.current_playlist);
     console.log('songs refreshed');
   });
 
