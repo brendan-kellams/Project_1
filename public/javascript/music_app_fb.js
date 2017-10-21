@@ -68,6 +68,21 @@ function refreshGroups(groupName)
  	$("#groupSubmenu").append('<li class="groupList"><a href="#">'+groupName+'</a></li>');
 }
 
+//====================================================================
+//  refreshTopSongs()
+//====================================================================
+function refreshTopSongs(id) {
+  $("#topSongsSubmenu").empty();
+  var rating = database.ref('playlists').child(id).child('songs').orderByChild('songRating')
+    .limitToFirst(5).on('value', (snapshot) => {
+    // console.log(snapshot.val());
+    $('#topSongsSubmenu').empty();
+    snapshot.forEach((value) => {
+      var name = (value.val().songName);
+      $('#topSongsSubmenu').append('<li><a href="#">'+name+'</a></li>');
+    });
+  })
+}
 
 //====================================================================
 //  refreshUsers()
@@ -109,6 +124,8 @@ $(document).on("click", ".groupList", function() {
 
   //Added more change because the other call doesn't work
   updateFriendsList();
+  //Now you can update top songs too
+  refreshTopSongs(shortID);
   // Retrieve the playlist for the selected group with playListID
   //Do a playlist change
   $('.playlist').attr('src', playListID);
@@ -289,6 +306,8 @@ database.ref('/playlists').on("value", function(snapShot, prevChildKey) {
 
     playListTable.push(playList);
     // console.log(playList);
+    refreshTopSongs();
+    console.log('songs refreshed');
   });
 
 });

@@ -54,7 +54,6 @@ $("#like-button").on("click", (event) => {
 		}
 	}).done((response) => {
 		var song = response.item.id;
-		database.ref('playlists').child(localStorage.current_playlist).
 		//Go to this reference
 		database.ref('playlists').child(localStorage.current_playlist).
 		child('songs').child(song).child('songRating').transaction((currentData) => {
