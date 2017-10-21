@@ -21,7 +21,8 @@ $(".search-form").submit((event) => {
 		array.forEach((value, index, array) => {
 			var song = $('<li>').addClass('media background-color');
 			var img_div = $('<div>').addClass('media-left');
-			var clickable = $('<a>').attr('href', '#').data('id', value.id).addClass('song-button');
+			var clickable = $('<a>').attr('href', '#').data('id', value.id).addClass('song-button')
+			.data('name', value.name);
 			var img = $('<img>').addClass('media-object img-circle').attr('alt', 'Generic placeholder image');
 			img_div.append(clickable.append(img));
 			var body = $('<div>').addClass('song-body media-body');
@@ -78,6 +79,15 @@ $("#about").on("click", (event) => {
 
 function addSong() {
 	var id = $(this).data('id');
+	var name = $(this).data('name');
+  var song = {
+	songID: id,
+	songName: name,
+	songRating: 0
+	};
+
+	database.ref('/playlists/').child(localStorage.current_playlist).child('songs').child(id).set(song);
+
 	$('.song-list').remove();
 	$('.playlist').show();
 	var url = "https://api.spotify.com/v1/users/" + localStorage.getItem('id') + "/playlists/" + localStorage.getItem('current_playlist')
@@ -147,3 +157,6 @@ $(document).ready(() => {
 
 
 });
+
+//Firebase ref
+var database = firebase.database();

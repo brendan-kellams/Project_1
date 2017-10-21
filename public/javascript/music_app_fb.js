@@ -51,9 +51,9 @@ function updateFriendsList() {
   $('#friendSubmenu').empty();
   var addFriend = database.ref('/groups/' + currentGroup).child('userList').orderByChild('userName');
   addFriend.on('value', (snapshot) => {
-    console.log(snapshot.val());
+    // console.log(snapshot.val());
     snapshot.forEach((value) => {
-      console.log(value.val().userName);
+      // console.log(value.val().userName);
       var name = value.val().userName;
       $("#friendSubmenu").append('<li><a href="#">'+name+'</a></li>');
     });
@@ -105,7 +105,7 @@ $(document).on("click", ".groupList", function() {
   var info = refreshUsers();
   var playListID = info.embedded;
   var shortID = info.playlistID;
-  console.log(info);
+  // console.log(info);
 
   //Added more change because the other call doesn't work
   updateFriendsList();
@@ -129,34 +129,34 @@ $(document).on("click", ".groupList", function() {
 //====================================================================
 //  onClick() event handler for #sidebar
 //====================================================================
-$(document).on("click", "#sidebar", function() {
+// $(document).on("click", "#sidebar", function() {
 
-  if (addThisUser === true)
-  {
-      // check to see if the app user's username and id already exists 
-      for (var i=0; i < users.length; i++)
-      {
-          user = users[i];
+//   if (addThisUser === true)
+//   {
+//       // check to see if the app user's username and id already exists 
+//       for (var i=0; i < users.length; i++)
+//       {
+//           user = users[i];
 
-          if (user.userID === thisUserID)
-          {
-            addThisUser = false;
-            break;
-          }
-      }
+//           if (user.userID === thisUserID)
+//           {
+//             addThisUser = false;
+//             break;
+//           }
+//       }
 
-      // if this is a new user, then add it to the Users list in the Firebase 
-      if (addThisUser === true)
-      {
-          database.ref('/users/' + thisUserID).set({
-                    userID: thisUserID,
-                    userName: thisUserName
-          });
+//       // if this is a new user, then add it to the Users list in the Firebase 
+//       if (addThisUser === true)
+//       {
+//           database.ref('/users/' + thisUserID).set({
+//                     userID: thisUserID,
+//                     userName: thisUserName
+//           });
 
-          addThisUser = false;
-      }
-  }
-});
+//           addThisUser = false;
+//       }
+//   }
+// });
 
 //====================================================================
 //  addUser() adds a new member to the selected Group
@@ -201,15 +201,15 @@ function addUser()
 
   if (friend)
   {
-    console.log(friend);
+    // console.log(friend);
     var exists = true;
     var addFriend = database.ref('/groups/' + currentGroup).child('userList').orderByChild('userName').equalTo(friend).limitToFirst(1);
     addFriend.on('value', 
       (snapshot) => {
-        console.log(snapshot.val());
+        // console.log(snapshot.val());
         exists = snapshot.exists();
         snapshot.forEach(function(value) {
-          console.log(value.val());
+          // console.log(value.val());
         });
       }
     );
@@ -262,7 +262,7 @@ database.ref('/groups').on("value", function(snapShot, prevChildKey) {
       group = value.val();
       groups.push(group);
       refreshGroups(group.groupName);
-      console.log(group);
+      // console.log(group);
   });
 });
 
@@ -274,7 +274,7 @@ database.ref('/users').on("value", function(snapShot, prevChildKey) {
   snapShot.forEach(function(value) {
       user = value.val();
       users.push(user);
-      console.log(user);
+      // console.log(user);
   });
 });
 
@@ -285,8 +285,10 @@ database.ref('/users').on("value", function(snapShot, prevChildKey) {
 database.ref('/playlists').on("value", function(snapShot, prevChildKey) {
   snapShot.forEach(function(value) {
     playList = value.val();
+    var id = playList.playListID;
+
     playListTable.push(playList);
-    console.log(playList);
+    // console.log(playList);
   });
 
 });
