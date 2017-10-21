@@ -139,7 +139,7 @@ $(document).ready(() => {
 	var name = document.cookie.replace(/(?:(?:^|.*;\s*)name\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 	var id = document.cookie.replace(/(?:(?:^|.*;\s*)id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 	localStorage.setItem('token', token);
-	localStorage.setItem('name', name);
+	localStorage.setItem('name', unescape(name));
 	localStorage.setItem('id', id);
 
 	//Dynamically add songs
