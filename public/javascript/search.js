@@ -40,7 +40,7 @@ $(".search-form").submit((event) => {
 	})
 });
 
-$("#contact").on("click", (event) => {
+$("#like-button").on("click", (event) => {
 	$.ajax({
 		headers: {
 			Authorization: "Bearer " + localStorage.getItem("token")
@@ -53,7 +53,13 @@ $("#contact").on("click", (event) => {
 			console.log(response);
 		}
 	}).done((response) => {
-		console.log(response);
+		var song = response.item.id;
+		database.ref('playlists').child(localStorage.current_playlist).
+		//Go to this reference
+		database.ref('playlists').child(localStorage.current_playlist).
+		child('songs').child(song).child('songRating').transaction((currentData) => {
+			return currentData + 1;
+		});
 	});
 });
 
