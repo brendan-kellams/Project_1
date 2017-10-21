@@ -13,6 +13,7 @@ $(".search-form").submit((event) => {
 			q : input,
 			type: "track"
 		},
+		error: (response) => {console.log(response)}
 
 	}).done((response) => {
 		$(".playlist").hide();
@@ -36,7 +37,7 @@ $(".search-form").submit((event) => {
 		});
 		$(".song-list").remove();
 		$("#media").append(list);
-	}).error((response) => {console.log(response)});
+	});
 });
 
 /* Function call to query the current song */

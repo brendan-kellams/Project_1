@@ -107,7 +107,8 @@ $(document).on("click", ".groupList", function() {
   // Retrieve the playlist for the selected group with playListID
   //Do a playlist change
   $('.playlist').attr('src', playListID);
-
+  //Update local storage for add song
+  localStorage.setItem('current_playlist', playListID);
   for (var i=0; i < playListTable.length; i++)
   {
     playList = playListTable[i];
