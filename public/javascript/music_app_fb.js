@@ -42,11 +42,23 @@ var playlist_3 = "https://open.spotify.com/user/1298427285/playlist/2vgjPlRpMdwy
 // $(document).ready()
 //=================================================================
 $(document).ready(function() {
-
   thisUserName = localStorage.getItem("name");
   thisUserID = localStorage.getItem("id");
+  updateFriendsList();
 });
 
+function updateFriendsList() {
+  $('#friendSubmenu').empty();
+  var addFriend = database.ref('/groups/' + currentGroup).child('userList').orderByChild('userName');
+  addFriend.on('value', (snapshot) => {
+    console.log(snapshot.val());
+    snapshot.forEach((value) => {
+      console.log(value.val().userName);
+      var name = value.val().userName;
+      $("#friendSubmenu").append('<li><a href="#">'+name+'</a></li>');
+    });
+  });
+}
 
 //====================================================================
 //  refreshGroups()
@@ -62,6 +74,7 @@ function refreshGroups(groupName)
 //====================================================================
 function refreshUsers()
 {
+
   for (var i=0; i < groups.length; i++)
   {
       group = groups[i];
@@ -76,7 +89,7 @@ function refreshUsers()
             break;
       }
   }
-  return group.playListID;
+  return group.embedded;
 }
 
 
@@ -87,8 +100,13 @@ $(document).on("click", ".groupList", function() {
 
   currentGroup = $(this).text();
   var playListID = refreshUsers();
+  console.log(playListID);
 
+  //Added more change because the other call doesn't work
+  updateFriendsList();
   // Retrieve the playlist for the selected group with playListID
+  //Do a playlist change
+  $('.playlist').attr('src', playListID);
 
   for (var i=0; i < playListTable.length; i++)
   {
@@ -134,7 +152,6 @@ $(document).on("click", "#sidebar", function() {
   }
 });
 
-
 //====================================================================
 //  addUser() adds a new member to the selected Group
 //====================================================================
@@ -142,57 +159,88 @@ function addUser()
 {
   event.preventDefault();
 
-  var addNewUser = false;
+  var friend = false;
   var username = $("#username").val().trim();
-
+  username = unescape(username);
+  $('#username').val('');
   // Make sure the given username exists
+  // for (var i=0; i < users.length; i++)
+  // {
+  //         user = users[i];
 
-  for (var i=0; i < users.length; i++)
-  {
-          user = users[i];
-
-          if (user.userName === username)
-          {
-            addNewUser = true;
-            break;
-          }
-  }
-
+  //         if (user.userName === username)
+  //         {
+  //           addNewUser = true;
+  //           break;
+  //         }
+  // }
+  var findFriend = database.ref('/users').orderByChild('userName').equalTo(username);
+  findFriend.on('value', 
+    (snapshot) => {
+      snapshot.forEach(function(value) {
+        friend = value.val().userName;
+      });
+    }
+  );
+   
+  // database.ref('/users').orderByChild('userName').equalTo(username).on('value', (snapshot) => {
+  //   snapshot.forEach((value) => {
+  //     console.log(value.val());
+  //   });
+  // });
+    // (error) => {
+    //   console.log(error);
+    // });
   //Now check if the user is in the current selected group
 
-  if (addNewUser)
+  if (friend)
   {
-      for (var i=0; i < groups.length; i++)
-      {
-        group = groups[i];
+    console.log(friend);
+    var exists = true;
+    var addFriend = database.ref('/groups/' + currentGroup).child('userList').orderByChild('userName').equalTo(friend).limitToFirst(1);
+    addFriend.on('value', 
+      (snapshot) => {
+        console.log(snapshot.val());
+        exists = snapshot.exists();
+        snapshot.forEach(function(value) {
+          console.log(value.val());
+        });
+      }
+    );
+    if(!exists) {
+      console.log('we\'re in exist');
+      database.ref('groups').child(currentGroup).child('userList').push({
+        userName: friend
+      });
+    }
+    // for (var i=0; i < groups.length; i++)
+    // {
+    //   group = groups[i];
 
-        if (group.groupName === currentGroup)
-        {
-            for (var j=0; j < group.userList.length; j++)
-            {
-              if (username === group.userList[j].userName)
-              {
-                addNewUser = false;
-                break;
-              }
-            }
+    //   if (group.groupName === currentGroup)
+    //   {
+    //       for (var j=0; j < group.userList.length; j++)
+    //       {
+    //         if (username === group.userList[j].userName)
+    //         {
+    //           addNewUser = false;
+    //           break;
+    //         }
+    //       }
 
-            if (addNewUser)
-            {
-                var userName = {userName:username};
-                group.userList.push(userName);
-                database.ref('/groups/'+ currentGroup).set({
-                groupName: currentGroup,
-                playListID: group.playListID,
-                userList: group.userList
-                });
+    //       if (addNewUser)
+    //       {
+    //           var userName = {userName:username};
+    //           group.userList.push(userName);
+    //           var ref = databse.ref('/groups/' + currentGroup + '/userList');
+    //           console.log(ref);
+    //           ref.push(userName, (error) => {console.log(error)});
+    //           refreshUsers();
+    //       }
+    //       break;
+    //   } //if
 
-                refreshUsers(username);
-            }
-            break;
-        } //if
-
-      } //for 
+    // } //for 
 
   }// if
 
@@ -202,29 +250,38 @@ function addUser()
 //====================================================================
 //  database.ref(/groups) Event Listener
 //====================================================================
-database.ref('/groups').on("child_added", function(childSnapshot, prevChildKey) {
-
-  group = childSnapshot.val();
-  groups.push(group);
-  refreshGroups(group.groupName);
+database.ref('/groups').on("value", function(snapShot, prevChildKey) {
+  $("#groupSubmenu").empty();
+  snapShot.forEach(function(value) {
+      group = value.val();
+      groups.push(group);
+      refreshGroups(group.groupName);
+      console.log(group);
+  });
 });
 
 
 //====================================================================
 //  database.ref(/users) Event Listener
 //====================================================================
-database.ref('/users').on("child_added", function(childSnapshot, prevChildKey) {
-
-  user = childSnapshot.val();
-  users.push(user);
+database.ref('/users').on("value", function(snapShot, prevChildKey) {
+  snapShot.forEach(function(value) {
+      user = value.val();
+      users.push(user);
+      console.log(user);
+  });
 });
 
 
 //====================================================================
 //  database.ref(/playlists) Event Listener
 //====================================================================
-database.ref('/playlists').on("child_added", function(childSnapshot, prevChildKey) {
+database.ref('/playlists').on("value", function(snapShot, prevChildKey) {
+  snapShot.forEach(function(value) {
+    playList = value.val();
+    playListTable.push(playList);
+    console.log(playList);
+  });
 
-  playList = childSnapshot.val();
-  playListTable.push(playList);
 });
+
